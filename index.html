@@ -29,7 +29,10 @@
       box-sizing: border-box;
     }
 
-    html {
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden; 
       scroll-behavior: smooth;
     }
 
@@ -39,7 +42,6 @@
       color: var(--text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
     }
 
     body::before {
@@ -287,34 +289,43 @@
 
     .watermark {
       position: absolute;
-      right: 20px;
-      bottom: 20px;
-      width: min(22%, 100px);
-      height: auto;
-      opacity: 0.75;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.15;
       pointer-events: none;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
       z-index: 2;
+      background-repeat: repeat;
+      background-size: 100px auto;
+      background-position: center;
     }
 
-    .carousel-controls {
+ .carousel-controls {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 2.5rem;
+      gap: 1.5rem; 
       margin-top: 2rem;
+      flex-wrap: nowrap; 
     }
 
     .carousel-btn {
       background: transparent;
       border: 1px solid var(--accent-light);
-      padding: 0.7rem 1.8rem;
+      padding: 0.6rem 1.5rem;
       cursor: pointer;
       font-size: 0.9rem;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       transition: all 0.3s ease;
       color: var(--text);
       border-radius: 50px;
+      white-space: nowrap; 
+    }
+
+  
+    .lightbox-description {
+      display: none; 
     }
 
     .carousel-btn:hover {
@@ -326,6 +337,8 @@
     .carousel-dots {
       display: flex;
       gap: 0.8rem;
+      flex-wrap: wrap; 
+      justify-content: center;
     }
 
     .carousel-dot {
@@ -356,6 +369,8 @@
       color: var(--text);
       border-radius: 50px;
       animation: floatGentle 4s infinite ease-in-out;
+      max-width: 90%; 
+      white-space: normal;
     }
 
     .show-more:hover {
@@ -428,39 +443,11 @@
     .contact-btn.instagram:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-color: transparent; }
     .contact-btn.tiktok:hover { background: #000; border-color: #000; }
     .contact-btn.youtube:hover { background: #ff0000; border-color: #ff0000; }
-    .contact-btn.email:hover { background: #555; border-color: #555; }
 
     .contact-btn:hover i {
       transform: scale(1.2);
     }
 
-    .donate-section {
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(0,0,0,0.06);
-    }
-
-    .donate-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-      padding: 1rem 2.5rem;
-      background: linear-gradient(135deg, var(--accent), #a0845c);
-      color: white;
-      text-decoration: none;
-      border-radius: 50px;
-      font-size: 1rem;
-      letter-spacing: 1.5px;
-      transition: all 0.4s ease;
-      box-shadow: 0 4px 15px rgba(139, 115, 85, 0.3);
-    }
-
-    .donate-btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(139, 115, 85, 0.4);
-    }
-
-    /* Gallery Page Styles */
     .gallery-page {
       display: none;
       padding-top: 5rem;
@@ -499,7 +486,6 @@
       border-color: var(--accent);
     }
 
-    /* Filters - Redesigned */
     .filters {
       display: flex;
       gap: 3rem;
@@ -555,16 +541,20 @@
       font-weight: 500;
     }
 
-    /* Gallery Grid - WITH SPACING, NO TEXT OVERLAY */
+    .filter-group input[type="checkbox"] {
+      display: none;
+    }
+
     .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
+      column-count: 3;
+      column-gap: 1.5rem;
       padding: 2rem var(--spacing);
       background: transparent;
     }
 
     .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 1.5rem;
       background: white;
       transition: all 0.4s ease;
       overflow: hidden;
@@ -572,6 +562,7 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       cursor: pointer;
       position: relative;
+      display: block;
     }
 
     .gallery-item:hover {
@@ -582,17 +573,12 @@
     .watermarked {
       position: relative;
       overflow: hidden;
-      aspect-ratio: 4/3;
-    }
-
-    .gallery-item.portrait .watermarked {
-      aspect-ratio: 3/4;
+      display: block; 
     }
 
     .watermarked img:first-child {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto; 
       display: block;
       transition: transform 0.5s ease;
     }
@@ -695,6 +681,13 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
+
+    @media (max-width: 992px) {
+      .gallery-grid {
+        column-count: 2;
+      }
+    }
+
     @media (max-width: 768px) {
       .about {
         grid-template-columns: 1fr;
@@ -702,8 +695,29 @@
         text-align: center;
       }
 
+      .about-text h1 {
+        font-size: clamp(2.5rem, 10vw, 4rem); 
+        word-wrap: break-word; 
+      }
+
       .about-text p {
         margin: 0 auto;
+      }
+      
+      .gallery-header {
+        flex-direction: column; 
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .carousel-controls {
+        gap: 1rem;
+        flex-wrap: wrap; 
+      }
+      
+      .carousel-btn {
+        padding: 0.6rem 1.2rem; 
+        font-size: 0.85rem;
       }
 
       .contact-buttons {
@@ -717,12 +731,6 @@
         justify-content: center;
       }
 
-      .gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 1rem;
-        padding: 1rem;
-      }
-
       .filters {
         gap: 1.5rem;
         flex-direction: column;
@@ -730,6 +738,13 @@
 
       .lightbox-content {
         max-width: 95vw;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .gallery-grid {
+        column-count: 1;
+        padding: 1rem;
       }
     }
   </style>
@@ -750,12 +765,12 @@
   <main class="main" id="mainPage">
     <section class="about" id="about">
       <div class="about-image-wrapper">
-        <img src="Poze/despre-mine.jpg" alt="Mihai Deaconescu" class="about-image" onerror="this.style.background='linear-gradient(135deg, #d5cfc7, #b8b2aa)'">
+        <img src="Poze/mihai.jpg" alt="Mihai Deaconescu" class="about-image" onerror="this.style.background='linear-gradient(135deg, #d5cfc7, #b8b2aa)'">
       </div>
       <div class="about-text">
-        <div class="subtitle">Fotograf • Artist Vizual</div>
+        <div class="subtitle">Fotograf</div>
         <h1>Mihai<br>Deaconescu</h1>
-        <p>Captivez lumina în forme pure, transformând momentele efemere în povești vizuale atemporale. Specializat în portrete artistice și peisaje care respiră emoție autentică.</p>
+        <p>Salutare. Aici e o descriere despre mine</p>
       </div>
     </section>
 
@@ -771,11 +786,11 @@
       </div>
     </section>
 
-    <button class="show-more" id="showMoreBtn">Explorează Galeria Completă</button>
+    <button class="show-more" id="showMoreBtn">Mai multe poze -></button></button>
 
     <section class="contact" id="contact">
       <h2>Contactează-mă</h2>
-      <p class="contact-subtitle">Hai să creăm ceva frumos împreună</p>
+      <p class="contact-subtitle"> </p>
       
       <div class="contact-buttons">
         <a href="https://www.facebook.com/people/mihai_deaconescu_/100071068270697/?ref=PROFILE_EDIT_xav_ig_profile_page_web#" class="contact-btn facebook" target="_blank">
@@ -790,50 +805,41 @@
         <a href="https://www.youtube.com/@Mihai_Deaconescu_Wildlife" class="contact-btn youtube" target="_blank">
           <i class="fab fa-youtube"></i> YouTube
         </a>
-     <!--   <a href="mailto:contact@mihaideaconescu.ro" class="contact-btn email">
-          <i class="fas fa-envelope"></i> Email
-        </a> -->
       </div>
-
-      <!-- <div class="donate-section">
-        <a href="#" class="donate-btn" target="_blank">
-          <i class="fas fa-coffee"></i> Susține-mă pe Ko-fi
-        </a>
-      </div> -->
     </section>
   </main>
 
   <div class="gallery-page" id="galleryPage">
     <div class="gallery-header">
       <button class="back-btn" id="backBtn">← Înapoi la portofoliu</button>
-      <h2 style="font-weight:300; font-family:'Cormorant Garamond', serif; font-size:1.8rem;">Galeria Completă</h2>
-      <div></div>
+      <h2 style="font-weight:300; font-family:'Cormorant Garamond', serif; font-size:1.8rem; margin: 0;">Galeria mea</h2>
+      <div style="display: none;"></div>
     </div>
     
     <div class="filters">
       <div class="filter-group">
         <span class="filter-group-title">Format</span>
         <div class="filter-options">
-          <input type="checkbox" id="filterPortrait" data-filter="portrait"><label for="filterPortrait">Portret</label>
-          <input type="checkbox" id="filterLandscape" data-filter="landscape"><label for="filterLandscape">Landscape</label>
+          <input type="checkbox" class="filter-check" id="filterPortrait" data-filter="portrait"><label for="filterPortrait">Portret</label>
+          <input type="checkbox" class="filter-check" id="filterLandscape" data-filter="landscape"><label for="filterLandscape">Landscape</label>
         </div>
       </div>
       
       <div class="filter-group">
         <span class="filter-group-title">Moment al zilei</span>
         <div class="filter-options">
-          <input type="checkbox" id="filterZi" data-filter="zi"><label for="filterZi">Zi</label>
-          <input type="checkbox" id="filterNoapte" data-filter="noapte"><label for="filterNoapte">Noapte</label>
+          <input type="checkbox" class="filter-check" id="filterZi" data-filter="zi"><label for="filterZi">Zi</label>
+          <input type="checkbox" class="filter-check" id="filterNoapte" data-filter="noapte"><label for="filterNoapte">Noapte</label>
         </div>
       </div>
       
       <div class="filter-group">
         <span class="filter-group-title">Categorie</span>
         <div class="filter-options">
-          <input type="checkbox" id="filterNatura" data-filter="natura"><label for="filterNatura">Natură</label>
-          <input type="checkbox" id="filterOameni" data-filter="oameni"><label for="filterOameni">Oameni</label>
-          <input type="checkbox" id="filterUrban" data-filter="urban"><label for="filterUrban">Urban</label>
-          <input type="checkbox" id="filterAbstract" data-filter="abstract"><label for="filterAbstract">Abstract</label>
+          <input type="checkbox" class="filter-check" id="filterNatura" data-filter="natura"><label for="filterNatura">Natură</label>
+          <input type="checkbox" class="filter-check" id="filterOameni" data-filter="oameni"><label for="filterOameni">Oameni</label>
+          <input type="checkbox" class="filter-check" id="filterUrban" data-filter="urban"><label for="filterUrban">Urban</label>
+          <input type="checkbox" class="filter-check" id="filterAbstract" data-filter="abstract"><label for="filterAbstract">Abstract</label>
         </div>
       </div>
     </div>
@@ -868,235 +874,155 @@
       });
       
       menuLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
+        link.addEventListener('click', () => {
           menuOverlay.classList.remove('active');
           document.body.style.overflow = '';
-          const target = document.getElementById(link.getAttribute('href').substring(1));
-          if (target) target.scrollIntoView({ behavior: 'smooth' });
         });
       });
 
-      const carouselTrack = document.getElementById('carouselTrack');
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      const carouselDots = document.getElementById('carouselDots');
-      const carouselImages = Array.from({length: 10}, (_, i) => `Poze/${i+1}.jpg`);
+      const featuredImages = [
+        "Poze/1.jpg", "Poze/2.jpg", "Poze/3.jpg", 
+        "Poze/4.jpg", "Poze/5.jpg"
+      ];
+      const track = document.getElementById('carouselTrack');
+      const dotsContainer = document.getElementById('carouselDots');
       let currentIndex = 0;
-      let autoPlayInterval;
-      let watermarkSrc = '';
 
-      function createWatermarkElement() {
-        if (!watermarkSrc) return null;
+      featuredImages.forEach((src, index) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'carousel-slide-wrapper';
         const img = document.createElement('img');
-        img.className = 'watermark';
-        img.src = watermarkSrc;
-        img.alt = 'watermark';
-        return img;
-      }
+        img.className = 'carousel-slide';
+        img.src = src;
+        img.alt = `Fotografie ${index + 1}`;
+        wrapper.appendChild(img);
+        
+        const watermark = document.createElement('div');
+        watermark.className = 'watermark';
+        watermark.style.backgroundImage = "url('Poze/watermark.png')";
+        wrapper.appendChild(watermark);
+        
+        track.appendChild(wrapper);
 
-      function loadCarousel() {
-        carouselTrack.innerHTML = '';
-        carouselDots.innerHTML = '';
-        carouselImages.forEach((src, idx) => {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'carousel-slide-wrapper';
-          const img = document.createElement('img');
-          img.src = src;
-          img.className = 'carousel-slide';
-          img.alt = `Fotografie ${idx+1}`;
-          img.onerror = function() { this.style.background = '#d5cfc7'; };
-          wrapper.appendChild(img);
-          const wm = createWatermarkElement();
-          if (wm) wrapper.appendChild(wm);
-          carouselTrack.appendChild(wrapper);
-
-          const dot = document.createElement('button');
-          dot.className = 'carousel-dot' + (idx === 0 ? ' active' : '');
-          dot.addEventListener('click', () => goToSlide(idx));
-          carouselDots.appendChild(dot);
-        });
-      }
+        const dot = document.createElement('button');
+        dot.className = `carousel-dot ${index === 0 ? 'active' : ''}`;
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+      });
 
       function updateCarousel() {
-        carouselTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
-        document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+          dot.classList.toggle('active', index === currentIndex);
+        });
       }
 
       function goToSlide(index) {
         currentIndex = index;
         updateCarousel();
-        resetAutoPlay();
       }
 
-      function nextSlide() { currentIndex = (currentIndex + 1) % carouselImages.length; updateCarousel(); }
-      function prevSlide() { currentIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length; updateCarousel(); }
-
-      function startAutoPlay() { stopAutoPlay(); autoPlayInterval = setInterval(nextSlide, 4500); }
-      function stopAutoPlay() { clearInterval(autoPlayInterval); }
-      function resetAutoPlay() { stopAutoPlay(); startAutoPlay(); }
-
-      prevBtn.addEventListener('click', () => { prevSlide(); resetAutoPlay(); });
-      nextBtn.addEventListener('click', () => { nextSlide(); resetAutoPlay(); });
-
-      let touchStartX = 0;
-      carouselTrack.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; stopAutoPlay(); }, {passive: true});
-      carouselTrack.addEventListener('touchend', (e) => {
-        const diff = touchStartX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 45) diff > 0 ? nextSlide() : prevSlide();
-        startAutoPlay();
+      document.getElementById('nextBtn').addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % featuredImages.length;
+        updateCarousel();
       });
 
-      const galleryData = [
-        { src: 'Poze/1.jpg', orientation: 'landscape', time: 'zi', category: 'natura', desc: 'Descriere' },
-        { src: 'Poze/2.jpg', orientation: 'portrait', time: 'zi', category: 'oameni', desc: 'Descriere' },
-        { src: 'Poze/3.jpg', orientation: 'landscape', time: 'noapte', category: 'urban', desc: 'Descriere' },
-        { src: 'Poze/4.jpg', orientation: 'portrait', time: 'noapte', category: 'abstract', desc: 'Descriere' },
-        { src: 'Poze/5.jpg', orientation: 'landscape', time: 'zi', category: 'oameni', desc: 'Descriere' },
-        { src: 'Poze/6.jpg', orientation: 'portrait', time: 'zi', category: 'natura', desc: 'Descriere' },
-        { src: 'Poze/7.jpg', orientation: 'landscape', time: 'noapte', category: 'urban', desc: 'Descriere' },
-        { src: 'Poze/8.jpg', orientation: 'portrait', time: 'noapte', category: 'oameni', desc: 'Descriere' },
-        { src: 'Poze/9.jpg', orientation: 'landscape', time: 'zi', category: 'abstract', desc: 'Descriere' },
-        { src: 'Poze/10.jpg', orientation: 'portrait', time: 'zi', category: 'natura', desc: 'Descriere' },
-        { src: 'Poze/11.jpg', orientation: 'landscape', time: 'noapte', category: 'oameni', desc: 'Descriere' },
-        { src: 'Poze/12.jpg', orientation: 'portrait', time: 'noapte', category: 'natura', desc: 'Descriere' },
-        { src: 'Poze/13.jpg', orientation: 'landscape', time: 'zi', category: 'urban', desc: 'Descriere' },
-        { src: 'Poze/14.jpg', orientation: 'portrait', time: 'zi', category: 'oameni', desc: 'Descriere' },
-        { src: 'Poze/15.jpg', orientation: 'landscape', time: 'noapte', category: 'natura', desc: 'Descriere' },
-        { src: 'Poze/16.jpg', orientation: 'portrait', time: 'noapte', category: 'abstract', desc: 'Descriere' },
-        { src: 'Poze/17.jpg', orientation: 'landscape', time: 'zi', category: 'oameni', desc: 'Descriere' },
-        { src: 'Poze/18.jpg', orientation: 'portrait', time: 'zi', category: 'natura', desc: 'Descriere' },
-        { src: 'Poze/19.jpg', orientation: 'landscape', time: 'noapte', category: 'urban', desc: 'Descriere' },
-        { src: 'Poze/20.jpg', orientation: 'portrait', time: 'noapte', category: 'oameni', desc: 'Descriere' }
+      document.getElementById('prevBtn').addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + featuredImages.length) % featuredImages.length;
+        updateCarousel();
+      });
+
+      const imagesData = [
+        { src: 'Poze/1.jpg', desc: 'descriere', tags: ['landscape', 'zi', 'natura'] },
+        { src: 'Poze/2.jpg', desc: 'sescriere', tags: ['portrait', 'zi', 'oameni'] },
+        { src: 'Poze/3.jpg', desc: 'descriere', tags: ['landscape', 'noapte', 'urban'] },
+        { src: 'Poze/4.jpg', desc: 'descriere', tags: ['portrait', 'zi', 'abstract', 'natura'] },
+        { src: 'Poze/5.jpg', desc: 'descriere', tags: ['portrait', 'noapte', 'oameni'] }
       ];
 
-      const galleryGrid = document.getElementById('galleryGrid');
       const mainPage = document.getElementById('mainPage');
       const galleryPage = document.getElementById('galleryPage');
-      const showMoreBtn = document.getElementById('showMoreBtn');
-      const backBtn = document.getElementById('backBtn');
+      const galleryGrid = document.getElementById('galleryGrid');
+      const checkboxes = document.querySelectorAll('.filter-check');
+
+      document.getElementById('showMoreBtn').addEventListener('click', () => {
+        mainPage.style.display = 'none';
+        galleryPage.classList.add('active');
+        window.scrollTo(0, 0);
+        renderGallery();
+      });
+
+      document.getElementById('backBtn').addEventListener('click', () => {
+        galleryPage.classList.remove('active');
+        mainPage.style.display = 'block';
+        window.scrollTo(0, 0);
+      });
+
+      function renderGallery() {
+        galleryGrid.innerHTML = '';
+        
+        let activeTags = [];
+        checkboxes.forEach(chk => {
+          if (chk.checked) activeTags.push(chk.dataset.filter);
+        });
+
+        const filtered = imagesData.filter(img => {
+          if (activeTags.length === 0) return true;
+          return activeTags.every(tag => img.tags.includes(tag));
+        });
+
+        filtered.forEach(imgData => {
+          const item = document.createElement('div');
+          item.className = 'gallery-item';
+          
+          const watermarked = document.createElement('div');
+          watermarked.className = 'watermarked';
+          
+          const img = document.createElement('img');
+          img.src = imgData.src;
+          img.alt = imgData.desc;
+          img.loading = 'lazy';
+          
+          const watermark = document.createElement('div');
+          watermark.className = 'watermark';
+          watermark.style.backgroundImage = "url('Poze/watermark.png')";
+          
+          watermarked.appendChild(img);
+          watermarked.appendChild(watermark);
+          item.appendChild(watermarked);
+          
+          item.addEventListener('click', () => openLightbox(imgData.src, imgData.desc));
+          galleryGrid.appendChild(item);
+        });
+      }
+
+      checkboxes.forEach(chk => chk.addEventListener('change', renderGallery));
+
       const lightboxOverlay = document.getElementById('lightboxOverlay');
       const lightboxImage = document.getElementById('lightboxImage');
       const lightboxDescription = document.getElementById('lightboxDescription');
-      const lightboxClose = document.getElementById('lightboxClose');
-      const lightboxBackBtn = document.getElementById('lightboxBackBtn');
 
-      function openLightbox(item) {
-        lightboxImage.src = item.src;
-        lightboxImage.alt = 'Fotografie';
-        lightboxDescription.textContent = item.desc;
+      function openLightbox(src, desc) {
+        lightboxImage.src = src;
+        // lightboxDescription.textContent = desc;
         lightboxOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
-      }
+    }
 
       function closeLightbox() {
         lightboxOverlay.classList.remove('active');
         document.body.style.overflow = '';
+        lightboxImage.src = ''; 
       }
 
-      lightboxClose.addEventListener('click', closeLightbox);
-      lightboxBackBtn.addEventListener('click', closeLightbox);
-      
+      document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+      document.getElementById('lightboxBackBtn').addEventListener('click', closeLightbox);
       lightboxOverlay.addEventListener('click', (e) => {
         if (e.target === lightboxOverlay) closeLightbox();
       });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightboxOverlay.classList.contains('active')) {
-          closeLightbox();
-        }
-      });
-
-      function renderGallery(items) {
-        galleryGrid.innerHTML = '';
-        items.forEach(item => {
-          const galleryItem = document.createElement('div');
-          galleryItem.className = `gallery-item ${item.orientation}`;
-          
-          const wrapper = document.createElement('div');
-          wrapper.className = 'watermarked';
-          
-          const img = document.createElement('img');
-          img.src = item.src;
-          img.alt = 'Fotografie';
-          img.loading = 'lazy';
-          img.onerror = function() { this.style.background = '#e0dbd5'; };
-          wrapper.appendChild(img);
-          
-          if (watermarkSrc) {
-            const wm = document.createElement('img');
-            wm.className = 'watermark';
-            wm.src = watermarkSrc;
-            wm.alt = 'watermark';
-            wrapper.appendChild(wm);
-          }
-          
-          galleryItem.appendChild(wrapper);
-          
-          galleryItem.addEventListener('click', () => openLightbox(item));
-          
-          galleryGrid.appendChild(galleryItem);
-        });
-      }
-
-      function filterGallery() {
-        const checked = document.querySelectorAll('.filter-check:checked');
-        if (checked.length === 0) { 
-          renderGallery(galleryData); 
-          return; 
-        }
-        const filters = Array.from(checked).map(cb => cb.dataset.filter);
-        const filtered = galleryData.filter(item => filters.some(f => {
-          if (f === 'portrait' || f === 'landscape') return item.orientation === f;
-          if (f === 'zi' || f === 'noapte') return item.time === f;
-          return item.category === f;
-        }));
-        renderGallery(filtered);
-      }
-
-      document.querySelectorAll('.filter-check').forEach(cb => cb.addEventListener('change', filterGallery));
-
-      // Watermark detection
-      const probe = new Image();
-      probe.onload = () => {
-        watermarkSrc = 'Poze/watermark.png';
-        loadCarousel();
-        updateCarousel();
-        if (galleryPage.classList.contains('active')) filterGallery();
-      };
-      probe.onerror = () => {
-        watermarkSrc = '';
-        loadCarousel();
-        updateCarousel();
-      };
-      probe.src = 'Poze/watermark.png';
-
-      loadCarousel();
-      updateCarousel();
-      startAutoPlay();
-
-      showMoreBtn.addEventListener('click', () => {
-        mainPage.style.display = 'none';
-        galleryPage.classList.add('active');
-        renderGallery(galleryData);
-        window.scrollTo(0, 0);
-        stopAutoPlay();
-      });
-
-      backBtn.addEventListener('click', () => {
-        galleryPage.classList.remove('active');
-        mainPage.style.display = 'block';
-        startAutoPlay();
-        window.scrollTo(0, 0);
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
-          menuOverlay.classList.remove('active');
-          document.body.style.overflow = '';
-        }
-      });
+      
     })();
   </script>
 </body>
 </html>
+
