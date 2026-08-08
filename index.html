@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <title>Mihai Deaconescu • Fotograf</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --text-light: #555;
+      --bg: #fafaf8;
+      --bg-warm: #f7f4ef;
+      --accent: #8b7355;
+      --accent-light: #b8a088;
+      --gold: #c4a97d;
+      --light: #e8e4df;
+      --lighter: #f0ede8;
+      --spacing: clamp(1.2rem, 5vw, 3.5rem);
+      --border-radius: 8px;
+      --transition-smooth: 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+      --shadow-elegant: 0 4px 20px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', 'Cormorant Garamond', Georgia, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #fdfcf8 0%, #f7f3ed 30%, #faf8f4 60%, #f5f1ea 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 30% 20%, rgba(196, 169, 125, 0.03) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 80%, rgba(139, 115, 85, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes floatGentle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.4rem var(--spacing);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: rgba(250, 250, 248, 0.75);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(232, 228, 223, 0.5);
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .nav-name {
+      font-size: 1.3rem;
+      font-weight: 450;
+      letter-spacing: 1px;
+      color: var(--text);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+    }
+
+    .menu-btn {
+      background: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-size: 1.4rem;
+      color: var(--text);
+      transition: all 0.3s ease;
+      padding: 0.5rem 0.7rem;
+      border-radius: 50%;
+    }
+
+    .menu-btn:hover {
+      background: rgba(139, 115, 85, 0.08);
+      border-color: rgba(139, 115, 85, 0.2);
+      transform: rotate(90deg);
+    }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(250, 248, 244, 0.98);
+      backdrop-filter: blur(30px);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .menu-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .menu-close {
+      position: absolute;
+      top: 2rem;
+      right: var(--spacing);
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.3s ease;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-close:hover {
+      background: rgba(0,0,0,0.05);
+      transform: rotate(90deg);
+    }
+
+    .menu-overlay a {
+      font-size: 2.5rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 300;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .menu-overlay a:hover {
+      color: var(--accent);
+      letter-spacing: 3px;
+    }
+
+    .main {
+      padding-top: 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about {
+      padding: var(--spacing);
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      min-height: 90vh;
+      padding-top: 5rem;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .about-image-wrapper {
+      position: relative;
+      animation: fadeInScale 1.2s ease-out;
+    }
+
+    .about-image {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      background: linear-gradient(135deg, #ddd8d1, #c4bfb8);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-elegant);
+      transition: all 0.5s ease;
+    }
+
+    .about-image-wrapper:hover .about-image {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .about-text {
+      animation: fadeInUp 1s ease-out 0.2s both;
+    }
+
+    .about-text h1 {
+      font-size: clamp(3rem, 7vw, 5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+
+    .about-text .subtitle {
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .about-text p {
+      font-size: 1.15rem;
+      color: var(--text-light);
+      max-width: 500px;
+      line-height: 1.8;
+    }
+
+    .carousel-section {
+      padding: 5rem var(--spacing);
+      max-width: 1400px;
+      margin: 0 auto;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    .carousel-section h2 {
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+      letter-spacing: 1px;
+      font-family: 'Cormorant Garamond', serif;
+      text-align: center;
+    }
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: var(--shadow-elegant);
+      background: #f5f2ed;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+      will-change: transform;
+    }
+
+    .carousel-slide-wrapper {
+      min-width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel-slide {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .carousel-slide-wrapper:hover .carousel-slide {
+      transform: scale(1.03);
+    }
+
+    .watermark {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      width: min(22%, 100px);
+      height: auto;
+      opacity: 0.75;
+      pointer-events: none;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+      z-index: 2;
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+
+    .carousel-btn {
+      background: transparent;
+      border: 1px solid var(--accent-light);
+      padding: 0.7rem 1.8rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      transition: all 0.3s ease;
+      color: var(--text);
+      border-radius: 50px;
+    }
+
+    .carousel-btn:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .carousel-dots {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d0ccc6;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .carousel-dot.active {
+      background: var(--accent);
+      transform: scale(1.3);
+    }
+
+    .show-more {
+      display: block;
+      margin: 3rem auto 6rem;
+      background: transparent;
+      border: 2px solid var(--accent-light);
+      padding: 0.9rem 2.5rem;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      color: var(--text);
+      border-radius: 50px;
+      animation: floatGentle 4s infinite ease-in-out;
+    }
+
+    .show-more:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(139, 115, 85, 0.3);
+    }
+
+    .contact {
+      padding: 5rem var(--spacing);
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      animation: fadeInUp 1s ease-out 0.4s both;
+    }
+
+    .contact h2 {
+      font-size: 2.2rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      padding-top: 2rem;
+    }
+
+    .contact-subtitle {
+      color: var(--text-light);
+      margin-bottom: 2.5rem;
+      font-size: 1rem;
+    }
+
+    .contact-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.9rem 1.8rem;
+      border: 1.5px solid var(--accent-light);
+      border-radius: 50px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.95rem;
+      letter-spacing: 0.8px;
+      transition: all 0.35s ease;
+      background: rgba(255,255,255,0.4);
+      backdrop-filter: blur(10px);
+    }
+
+    .contact-btn i {
+      font-size: 1.1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .contact-btn:hover {
+      color: white;
+      border-color: transparent;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(139, 115, 85, 0.25);
+    }
+
+    .contact-btn.facebook:hover { background: #1877f2; border-color: #1877f2; }
+    .contact-btn.instagram:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-color: transparent; }
+    .contact-btn.tiktok:hover { background: #000; border-color: #000; }
+    .contact-btn.youtube:hover { background: #ff0000; border-color: #ff0000; }
+    .contact-btn.email:hover { background: #555; border-color: #555; }
+
+    .contact-btn:hover i {
+      transform: scale(1.2);
+    }
+
+    .donate-section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .donate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1rem 2.5rem;
+      background: linear-gradient(135deg, var(--accent), #a0845c);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      letter-spacing: 1.5px;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 15px rgba(139, 115, 85, 0.3);
+    }
+
+    .donate-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(139, 115, 85, 0.4);
+    }
+
+    /* Gallery Page Styles */
+    .gallery-page {
+      display: none;
+      padding-top: 5rem;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .gallery-page.active {
+      display: block;
+    }
+
+    .gallery-header {
+      padding: 1.5rem var(--spacing);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    .back-btn {
+      background: none;
+      border: 1px solid var(--accent-light);
+      padding: 0.7rem 1.8rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--text);
+      letter-spacing: 0.8px;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    /* Filters - Redesigned */
+    .filters {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+      padding: 2rem var(--spacing);
+      background: rgba(255,255,255,0.4);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      align-items: flex-start;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .filter-group-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .filter-group label {
+      cursor: pointer;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      border: 1.5px solid #d5d0c8;
+      font-size: 0.85rem;
+      background: white;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .filter-group label:hover {
+      border-color: var(--accent-light);
+      background: rgba(139, 115, 85, 0.05);
+    }
+
+    .filter-group input:checked + label {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* Gallery Grid - WITH SPACING, NO TEXT OVERLAY */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem var(--spacing);
+      background: transparent;
+    }
+
+    .gallery-item {
+      background: white;
+      transition: all 0.4s ease;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+    }
+
+    .watermarked {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+
+    .gallery-item.portrait .watermarked {
+      aspect-ratio: 3/4;
+    }
+
+    .watermarked img:first-child {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover .watermarked img:first-child {
+      transform: scale(1.05);
+    }
+
+    /* Lightbox */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      padding: 2rem;
+    }
+
+    .lightbox-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255,255,255,0.2);
+      transform: rotate(90deg);
+    }
+
+    .lightbox-content {
+      max-width: 90vw;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 65vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      animation: fadeInScale 0.5s ease;
+    }
+
+    .lightbox-description {
+      color: rgba(255,255,255,0.8);
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      max-width: 600px;
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.5px;
+      font-style: italic;
+    }
+
+    .lightbox-back-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 1px;
+      backdrop-filter: blur(10px);
+      margin-top: 0.5rem;
+    }
+
+    .lightbox-back-btn:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    @media (max-width: 768px) {
+      .about {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        text-align: center;
+      }
+
+      .about-text p {
+        margin: 0 auto;
+      }
+
+      .contact-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .contact-btn {
+        width: 80%;
+        justify-content: center;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .filters {
+        gap: 1.5rem;
+        flex-direction: column;
+      }
+
+      .lightbox-content {
+        max-width: 95vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <span class="nav-name">Mihai Deaconescu</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Meniu"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <div class="menu-overlay" id="menuOverlay">
+    <button class="menu-close" id="menuClose"><i class="fas fa-times"></i></button>
+    <a href="#about" class="menu-link">Despre</a>
+    <a href="#carousel" class="menu-link">Portofoliu</a>
+    <a href="#contact" class="menu-link">Contact</a>
+  </div>
+
+  <main class="main" id="mainPage">
+    <section class="about" id="about">
+      <div class="about-image-wrapper">
+        <img src="Poze/despre-mine.jpg" alt="Mihai Deaconescu" class="about-image" onerror="this.style.background='linear-gradient(135deg, #d5cfc7, #b8b2aa)'">
+      </div>
+      <div class="about-text">
+        <div class="subtitle">Fotograf • Artist Vizual</div>
+        <h1>Mihai<br>Deaconescu</h1>
+        <p>Captivez lumina în forme pure, transformând momentele efemere în povești vizuale atemporale. Specializat în portrete artistice și peisaje care respiră emoție autentică.</p>
+      </div>
+    </section>
+
+    <section class="carousel-section" id="carousel">
+      <h2>Selecție Portofoliu</h2>
+      <div class="carousel">
+        <div class="carousel-track" id="carouselTrack"></div>
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevBtn">← Înapoi</button>
+        <div class="carousel-dots" id="carouselDots"></div>
+        <button class="carousel-btn" id="nextBtn">Înainte →</button>
+      </div>
+    </section>
+
+    <button class="show-more" id="showMoreBtn">Explorează Galeria Completă</button>
+
+    <section class="contact" id="contact">
+      <h2>Contactează-mă</h2>
+      <p class="contact-subtitle">Hai să creăm ceva frumos împreună</p>
+      
+      <div class="contact-buttons">
+        <a href="https://www.facebook.com/people/mihai_deaconescu_/100071068270697/?ref=PROFILE_EDIT_xav_ig_profile_page_web#" class="contact-btn facebook" target="_blank">
+          <i class="fab fa-facebook-f"></i> Facebook
+        </a>
+        <a href="https://www.instagram.com/mihai_deaconescu_" class="contact-btn instagram" target="_blank">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="https://www.tiktok.com/@mihai_deaconescu_" class="contact-btn tiktok" target="_blank">
+          <i class="fab fa-tiktok"></i> TikTok
+        </a>
+        <a href="https://www.youtube.com/@Mihai_Deaconescu_Wildlife" class="contact-btn youtube" target="_blank">
+          <i class="fab fa-youtube"></i> YouTube
+        </a>
+     <!--   <a href="mailto:contact@mihaideaconescu.ro" class="contact-btn email">
+          <i class="fas fa-envelope"></i> Email
+        </a> -->
+      </div>
+
+      <!-- <div class="donate-section">
+        <a href="#" class="donate-btn" target="_blank">
+          <i class="fas fa-coffee"></i> Susține-mă pe Ko-fi
+        </a>
+      </div> -->
+    </section>
+  </main>
+
+  <div class="gallery-page" id="galleryPage">
+    <div class="gallery-header">
+      <button class="back-btn" id="backBtn">← Înapoi la portofoliu</button>
+      <h2 style="font-weight:300; font-family:'Cormorant Garamond', serif; font-size:1.8rem;">Galeria Completă</h2>
+      <div></div>
+    </div>
+    
+    <div class="filters">
+      <div class="filter-group">
+        <span class="filter-group-title">Format</span>
+        <div class="filter-options">
+          <input type="checkbox" id="filterPortrait" data-filter="portrait"><label for="filterPortrait">Portret</label>
+          <input type="checkbox" id="filterLandscape" data-filter="landscape"><label for="filterLandscape">Landscape</label>
+        </div>
+      </div>
+      
+      <div class="filter-group">
+        <span class="filter-group-title">Moment al zilei</span>
+        <div class="filter-options">
+          <input type="checkbox" id="filterZi" data-filter="zi"><label for="filterZi">Zi</label>
+          <input type="checkbox" id="filterNoapte" data-filter="noapte"><label for="filterNoapte">Noapte</label>
+        </div>
+      </div>
+      
+      <div class="filter-group">
+        <span class="filter-group-title">Categorie</span>
+        <div class="filter-options">
+          <input type="checkbox" id="filterNatura" data-filter="natura"><label for="filterNatura">Natură</label>
+          <input type="checkbox" id="filterOameni" data-filter="oameni"><label for="filterOameni">Oameni</label>
+          <input type="checkbox" id="filterUrban" data-filter="urban"><label for="filterUrban">Urban</label>
+          <input type="checkbox" id="filterAbstract" data-filter="abstract"><label for="filterAbstract">Abstract</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+
+  <div class="lightbox-overlay" id="lightboxOverlay">
+    <button class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+    <div class="lightbox-content">
+      <img class="lightbox-image" id="lightboxImage" src="" alt="">
+      <p class="lightbox-description" id="lightboxDescription"></p>
+      <button class="lightbox-back-btn" id="lightboxBackBtn">← Revino la galerie</button>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const menuBtn = document.getElementById('menuBtn');
+      const menuClose = document.getElementById('menuClose');
+      const menuOverlay = document.getElementById('menuOverlay');
+      const menuLinks = document.querySelectorAll('.menu-link');
+
+      menuBtn.addEventListener('click', () => {
+        menuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+      
+      menuClose.addEventListener('click', () => {
+        menuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+      
+      menuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          menuOverlay.classList.remove('active');
+          document.body.style.overflow = '';
+          const target = document.getElementById(link.getAttribute('href').substring(1));
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+
+      const carouselTrack = document.getElementById('carouselTrack');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const carouselDots = document.getElementById('carouselDots');
+      const carouselImages = Array.from({length: 10}, (_, i) => `Poze/${i+1}.jpg`);
+      let currentIndex = 0;
+      let autoPlayInterval;
+      let watermarkSrc = '';
+
+      function createWatermarkElement() {
+        if (!watermarkSrc) return null;
+        const img = document.createElement('img');
+        img.className = 'watermark';
+        img.src = watermarkSrc;
+        img.alt = 'watermark';
+        return img;
+      }
+
+      function loadCarousel() {
+        carouselTrack.innerHTML = '';
+        carouselDots.innerHTML = '';
+        carouselImages.forEach((src, idx) => {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'carousel-slide-wrapper';
+          const img = document.createElement('img');
+          img.src = src;
+          img.className = 'carousel-slide';
+          img.alt = `Fotografie ${idx+1}`;
+          img.onerror = function() { this.style.background = '#d5cfc7'; };
+          wrapper.appendChild(img);
+          const wm = createWatermarkElement();
+          if (wm) wrapper.appendChild(wm);
+          carouselTrack.appendChild(wrapper);
+
+          const dot = document.createElement('button');
+          dot.className = 'carousel-dot' + (idx === 0 ? ' active' : '');
+          dot.addEventListener('click', () => goToSlide(idx));
+          carouselDots.appendChild(dot);
+        });
+      }
+
+      function updateCarousel() {
+        carouselTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+        document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+      }
+
+      function goToSlide(index) {
+        currentIndex = index;
+        updateCarousel();
+        resetAutoPlay();
+      }
+
+      function nextSlide() { currentIndex = (currentIndex + 1) % carouselImages.length; updateCarousel(); }
+      function prevSlide() { currentIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length; updateCarousel(); }
+
+      function startAutoPlay() { stopAutoPlay(); autoPlayInterval = setInterval(nextSlide, 4500); }
+      function stopAutoPlay() { clearInterval(autoPlayInterval); }
+      function resetAutoPlay() { stopAutoPlay(); startAutoPlay(); }
+
+      prevBtn.addEventListener('click', () => { prevSlide(); resetAutoPlay(); });
+      nextBtn.addEventListener('click', () => { nextSlide(); resetAutoPlay(); });
+
+      let touchStartX = 0;
+      carouselTrack.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; stopAutoPlay(); }, {passive: true});
+      carouselTrack.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 45) diff > 0 ? nextSlide() : prevSlide();
+        startAutoPlay();
+      });
+
+      const galleryData = [
+        { src: 'Poze/1.jpg', orientation: 'landscape', time: 'zi', category: 'natura', desc: 'Descriere' },
+        { src: 'Poze/2.jpg', orientation: 'portrait', time: 'zi', category: 'oameni', desc: 'Descriere' },
+        { src: 'Poze/3.jpg', orientation: 'landscape', time: 'noapte', category: 'urban', desc: 'Descriere' },
+        { src: 'Poze/4.jpg', orientation: 'portrait', time: 'noapte', category: 'abstract', desc: 'Descriere' },
+        { src: 'Poze/5.jpg', orientation: 'landscape', time: 'zi', category: 'oameni', desc: 'Descriere' },
+        { src: 'Poze/6.jpg', orientation: 'portrait', time: 'zi', category: 'natura', desc: 'Descriere' },
+        { src: 'Poze/7.jpg', orientation: 'landscape', time: 'noapte', category: 'urban', desc: 'Descriere' },
+        { src: 'Poze/8.jpg', orientation: 'portrait', time: 'noapte', category: 'oameni', desc: 'Descriere' },
+        { src: 'Poze/9.jpg', orientation: 'landscape', time: 'zi', category: 'abstract', desc: 'Descriere' },
+        { src: 'Poze/10.jpg', orientation: 'portrait', time: 'zi', category: 'natura', desc: 'Descriere' },
+        { src: 'Poze/11.jpg', orientation: 'landscape', time: 'noapte', category: 'oameni', desc: 'Descriere' },
+        { src: 'Poze/12.jpg', orientation: 'portrait', time: 'noapte', category: 'natura', desc: 'Descriere' },
+        { src: 'Poze/13.jpg', orientation: 'landscape', time: 'zi', category: 'urban', desc: 'Descriere' },
+        { src: 'Poze/14.jpg', orientation: 'portrait', time: 'zi', category: 'oameni', desc: 'Descriere' },
+        { src: 'Poze/15.jpg', orientation: 'landscape', time: 'noapte', category: 'natura', desc: 'Descriere' },
+        { src: 'Poze/16.jpg', orientation: 'portrait', time: 'noapte', category: 'abstract', desc: 'Descriere' },
+        { src: 'Poze/17.jpg', orientation: 'landscape', time: 'zi', category: 'oameni', desc: 'Descriere' },
+        { src: 'Poze/18.jpg', orientation: 'portrait', time: 'zi', category: 'natura', desc: 'Descriere' },
+        { src: 'Poze/19.jpg', orientation: 'landscape', time: 'noapte', category: 'urban', desc: 'Descriere' },
+        { src: 'Poze/20.jpg', orientation: 'portrait', time: 'noapte', category: 'oameni', desc: 'Descriere' }
+      ];
+
+      const galleryGrid = document.getElementById('galleryGrid');
+      const mainPage = document.getElementById('mainPage');
+      const galleryPage = document.getElementById('galleryPage');
+      const showMoreBtn = document.getElementById('showMoreBtn');
+      const backBtn = document.getElementById('backBtn');
+      const lightboxOverlay = document.getElementById('lightboxOverlay');
+      const lightboxImage = document.getElementById('lightboxImage');
+      const lightboxDescription = document.getElementById('lightboxDescription');
+      const lightboxClose = document.getElementById('lightboxClose');
+      const lightboxBackBtn = document.getElementById('lightboxBackBtn');
+
+      function openLightbox(item) {
+        lightboxImage.src = item.src;
+        lightboxImage.alt = 'Fotografie';
+        lightboxDescription.textContent = item.desc;
+        lightboxOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightboxOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightboxBackBtn.addEventListener('click', closeLightbox);
+      
+      lightboxOverlay.addEventListener('click', (e) => {
+        if (e.target === lightboxOverlay) closeLightbox();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightboxOverlay.classList.contains('active')) {
+          closeLightbox();
+        }
+      });
+
+      function renderGallery(items) {
+        galleryGrid.innerHTML = '';
+        items.forEach(item => {
+          const galleryItem = document.createElement('div');
+          galleryItem.className = `gallery-item ${item.orientation}`;
+          
+          const wrapper = document.createElement('div');
+          wrapper.className = 'watermarked';
+          
+          const img = document.createElement('img');
+          img.src = item.src;
+          img.alt = 'Fotografie';
+          img.loading = 'lazy';
+          img.onerror = function() { this.style.background = '#e0dbd5'; };
+          wrapper.appendChild(img);
+          
+          if (watermarkSrc) {
+            const wm = document.createElement('img');
+            wm.className = 'watermark';
+            wm.src = watermarkSrc;
+            wm.alt = 'watermark';
+            wrapper.appendChild(wm);
+          }
+          
+          galleryItem.appendChild(wrapper);
+          
+          galleryItem.addEventListener('click', () => openLightbox(item));
+          
+          galleryGrid.appendChild(galleryItem);
+        });
+      }
+
+      function filterGallery() {
+        const checked = document.querySelectorAll('.filter-check:checked');
+        if (checked.length === 0) { 
+          renderGallery(galleryData); 
+          return; 
+        }
+        const filters = Array.from(checked).map(cb => cb.dataset.filter);
+        const filtered = galleryData.filter(item => filters.some(f => {
+          if (f === 'portrait' || f === 'landscape') return item.orientation === f;
+          if (f === 'zi' || f === 'noapte') return item.time === f;
+          return item.category === f;
+        }));
+        renderGallery(filtered);
+      }
+
+      document.querySelectorAll('.filter-check').forEach(cb => cb.addEventListener('change', filterGallery));
+
+      // Watermark detection
+      const probe = new Image();
+      probe.onload = () => {
+        watermarkSrc = 'Poze/watermark.png';
+        loadCarousel();
+        updateCarousel();
+        if (galleryPage.classList.contains('active')) filterGallery();
+      };
+      probe.onerror = () => {
+        watermarkSrc = '';
+        loadCarousel();
+        updateCarousel();
+      };
+      probe.src = 'Poze/watermark.png';
+
+      loadCarousel();
+      updateCarousel();
+      startAutoPlay();
+
+      showMoreBtn.addEventListener('click', () => {
+        mainPage.style.display = 'none';
+        galleryPage.classList.add('active');
+        renderGallery(galleryData);
+        window.scrollTo(0, 0);
+        stopAutoPlay();
+      });
+
+      backBtn.addEventListener('click', () => {
+        galleryPage.classList.remove('active');
+        mainPage.style.display = 'block';
+        startAutoPlay();
+        window.scrollTo(0, 0);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
+          menuOverlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
