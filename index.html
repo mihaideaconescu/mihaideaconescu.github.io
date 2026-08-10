@@ -2,7 +2,7 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <meta name="google-site-verification" content="XdWGlYnqZz1fKtTjkp5hbqGpyhfD-f2dV-nudrTlaoE" />
+  <meta name="google-site-verification" content="XdWGlYnqZz1fKtTjkp5hbqGpyhfD-f2dV-nudrTlaoE">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
   <title>Mihai Deaconescu • Fotograf</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -225,8 +225,8 @@
 
     .about-image {
       width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
+      height: auto;
+      display: block;
       background: linear-gradient(135deg, #ddd8d1, #c4bfb8);
       border-radius: var(--border-radius);
       box-shadow: var(--shadow-elegant);
@@ -299,14 +299,12 @@
       min-width: 100%;
       position: relative;
       overflow: hidden;
-      min-height: 400px;
       background: #e0dcd6;
     }
 
     .carousel-slide {
       width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: cover;
+      height: auto;
       display: block;
       transition: transform 0.5s ease;
     }
@@ -586,7 +584,6 @@
       cursor: pointer;
       position: relative;
       display: block;
-      min-height: 200px;
     }
 
     .gallery-item:hover {
