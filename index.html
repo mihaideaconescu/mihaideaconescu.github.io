@@ -848,7 +848,6 @@
         <span class="filter-group-title" data-i18n="filterCategory">Categorie</span>
         <div class="filter-options">
           <input type="checkbox" class="filter-check" id="filterNatura" data-filter="natura"><label for="filterNatura" data-i18n="filterNatura">Natură</label>
-          <input type="checkbox" class="filter-check" id="filterOameni" data-filter="oameni"><label for="filterOameni" data-i18n="filterOameni">Oameni</label>
           <input type="checkbox" class="filter-check" id="filterUrban" data-filter="urban"><label for="filterUrban" data-i18n="filterUrban">Urban</label>
           <input type="checkbox" class="filter-check" id="filterAbstract" data-filter="abstract"><label for="filterAbstract" data-i18n="filterAbstract">Abstract</label>
         </div>
@@ -1000,7 +999,7 @@
 
       function loadImages() {
         let imagesData = [];
-        for (let i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 35; i++) {
           let filename = `${i}.jpg`;
           imagesData.push({
             src: `Poze/${filename}`,
