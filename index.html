@@ -608,7 +608,6 @@
       transform: scale(1.05);
     }
 
-    /* Lightbox */
     .lightbox-overlay {
       position: fixed;
       inset: 0;
@@ -903,7 +902,6 @@
         });
       });
 
-      /* Translation logic with custom descriptions */
       const translations = {
         RO: {
           menuAbout: "Despre",
@@ -975,10 +973,6 @@
         });
       });
 
-      /* 
-        AICI ADAUGI TAGURILE PENTRU POZELE DIN FOLDERUL "Poze" (1.jpg, 2.jpg, etc.)
-        Dacă adaugi o poză nouă (ex: 6.jpg), o poți include mai jos cu tagurile dorite.
-      */
       const customTags = {
         '1.jpg': ['landscape', 'zi', 'natura'],
         '2.jpg': ['portrait', 'zi', 'oameni'],
@@ -995,7 +989,6 @@
         '5.jpg': 'descriere'
       };
 
-      // Încărcare a 10 poze prestabilite din folderul Poze (1.jpg - 10.jpg)
       function loadImages() {
         let imagesData = [];
         for (let i = 1; i <= 10; i++) {
@@ -1003,15 +996,13 @@
           imagesData.push({
             src: `Poze/${filename}`,
             desc: customDescriptions[filename] || "Wildlife & Nature Photography",
-            tags: customTags[filename] || ['natura', 'zi'] // Taguri implicite dacă nu sunt specificate
+            tags: customTags[filename] || ['natura', 'zi']
           });
         }
         return imagesData;
       }
 
       const imagesData = loadImages();
-
-      // Carousel setup (primele 5 poze sau câte sunt disponibile)
       const featuredImages = imagesData.slice(0, 5).map(img => img.src);
       const track = document.getElementById('carouselTrack');
       const dotsContainer = document.getElementById('carouselDots');
@@ -1024,6 +1015,7 @@
         img.className = 'carousel-slide';
         img.src = src;
         img.alt = `Fotografie ${index + 1}`;
+        img.onerror = function() { this.style.background='linear-gradient(135deg, #d5cfc7, #b8b2aa)' };
         wrapper.appendChild(img);
         
         const watermark = document.createElement('div');
@@ -1111,6 +1103,7 @@
           img.src = imgData.src;
           img.alt = imgData.desc;
           img.loading = 'lazy';
+          img.onerror = function() { this.style.background='linear-gradient(135deg, #d5cfc7, #b8b2aa)' };
           
           const watermark = document.createElement('div');
           watermark.className = 'watermark';
@@ -1129,9 +1122,11 @@
 
       const lightboxOverlay = document.getElementById('lightboxOverlay');
       const lightboxImage = document.getElementById('lightboxImage');
+      const lightboxDescription = document.getElementById('lightboxDescription');
 
       function openLightbox(src, desc) {
         lightboxImage.src = src;
+        lightboxDescription.textContent = desc;
         lightboxOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
       }
@@ -1140,6 +1135,7 @@
         lightboxOverlay.classList.remove('active');
         document.body.style.overflow = '';
         lightboxImage.src = ''; 
+        lightboxDescription.textContent = '';
       }
 
       document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
