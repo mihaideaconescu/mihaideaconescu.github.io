@@ -287,10 +287,12 @@
       border-radius: 12px;
       box-shadow: var(--shadow-elegant);
       background: #f5f2ed;
+      transition: height 0.5s ease;
     }
 
     .carousel-track {
       display: flex;
+      align-items: flex-start;
       transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
       will-change: transform;
     }
@@ -786,7 +788,7 @@
     </section>
 
     <section class="carousel-section" id="carousel">
-      <h2 data-i18n="carouselTitle">Selecție Portofoliu</h2>
+      <h2 data-i18n="carouselTitle">Portofoliu</h2>
       <div class="carousel">
         <div class="carousel-track" id="carouselTrack"></div>
       </div>
@@ -896,7 +898,7 @@
           menuContact: "Contact",
           subtitle: "Fotograf",
           aboutP: "Numele meu este Mihai, iar de 5 ani încerc să fotografiez natura și fauna sălbatică. Indiferent de vreme sau de anotimp, ies afară cât de des posibil. Animalele sunt imprevizibile, dar tocmai asta face acest hobby și mai interesant. Până acum am învățat că răbdarea este cheia și că respectul pentru natură va fi întotdeauna răsplătit.",
-          carouselTitle: "Selecție Portofoliu",
+          carouselTitle: "Portofoliu",
           prevBtn: "← Înapoi",
           nextBtn: "Înainte →",
           showMore: "Mai multe poze ->",
@@ -921,7 +923,7 @@
           menuContact: "Contact",
           subtitle: "Photographer",
           aboutP: "My name is Mihai, and for 5 years I have been trying to photograph nature and wildlife. Regardless of the weather, the season, I go outside as often as possible. Animals are unpredictable, but that's what makes this hobby even more interesting. So far I have learned that patience is the key and respect for nature will always be rewarded.",
-          carouselTitle: "Portfolio Selection",
+          carouselTitle: "Portfolio",
           prevBtn: "← Back",
           nextBtn: "Next →",
           showMore: "More photos ->",
@@ -1022,6 +1024,11 @@
         img.className = 'carousel-slide';
         img.src = src;
         img.alt = `Fotografie ${index + 1}`;
+        
+        if(index === 0) {
+          img.onload = updateCarousel;
+        }
+
         wrapper.appendChild(img);
         
         const watermark = document.createElement('div');
@@ -1040,10 +1047,18 @@
       function updateCarousel() {
         if(featuredImages.length === 0) return;
         track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        const currentSlide = track.children[currentIndex];
+        if (currentSlide) {
+          track.parentElement.style.height = currentSlide.offsetHeight + 'px';
+        }
+
         document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
           dot.classList.toggle('active', index === currentIndex);
         });
       }
+
+      window.addEventListener('resize', updateCarousel);
 
       function goToSlide(index) {
         currentIndex = index;
