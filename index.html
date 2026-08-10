@@ -96,6 +96,31 @@
       font-style: italic;
     }
 
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .lang-btn {
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid var(--accent-light);
+      padding: 0.4rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .lang-btn:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
     .menu-btn {
       background: none;
       border: 1px solid transparent;
@@ -301,7 +326,7 @@
       background-position: center;
     }
 
- .carousel-controls {
+    .carousel-controls {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -321,11 +346,6 @@
       color: var(--text);
       border-radius: 50px;
       white-space: nowrap; 
-    }
-
-  
-    .lightbox-description {
-      display: none; 
     }
 
     .carousel-btn:hover {
@@ -681,7 +701,6 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
-
     @media (max-width: 992px) {
       .gallery-grid {
         column-count: 2;
@@ -752,14 +771,17 @@
 <body>
   <nav class="nav">
     <span class="nav-name">Mihai Deaconescu</span>
-    <button class="menu-btn" id="menuBtn" aria-label="Meniu"><i class="fas fa-bars"></i></button>
+    <div class="nav-actions">
+      <button class="lang-btn" id="langBtn">RO</button>
+      <button class="menu-btn" id="menuBtn" aria-label="Meniu"><i class="fas fa-bars"></i></button>
+    </div>
   </nav>
 
   <div class="menu-overlay" id="menuOverlay">
     <button class="menu-close" id="menuClose"><i class="fas fa-times"></i></button>
-    <a href="#about" class="menu-link">Despre</a>
-    <a href="#carousel" class="menu-link">Portofoliu</a>
-    <a href="#contact" class="menu-link">Contact</a>
+    <a href="#about" class="menu-link" data-i18n="menuAbout">Despre</a>
+    <a href="#carousel" class="menu-link" data-i18n="menuPortfolio">Portofoliu</a>
+    <a href="#contact" class="menu-link" data-i18n="menuContact">Contact</a>
   </div>
 
   <main class="main" id="mainPage">
@@ -768,28 +790,28 @@
         <img src="Poze/mihai.jpg" alt="Mihai Deaconescu" class="about-image" onerror="this.style.background='linear-gradient(135deg, #d5cfc7, #b8b2aa)'">
       </div>
       <div class="about-text">
-        <div class="subtitle">Fotograf</div>
+        <div class="subtitle" data-i18n="subtitle">Fotograf</div>
         <h1>Mihai<br>Deaconescu</h1>
-        <p>Salutare. Aici e o descriere despre mine</p>
+        <p id="aboutDescription" data-i18n="aboutP">Numele meu este Mihai, iar de 5 ani încerc să fotografiez natura și fauna sălbatică. Indiferent de vreme sau de anotimp, ies afară cât de des posibil. Animalele sunt imprevizibile, dar tocmai asta face acest hobby și mai interesant. Până acum am învățat că răbdarea este cheia și că respectul pentru natură va fi întotdeauna răsplătit.</p>
       </div>
     </section>
 
     <section class="carousel-section" id="carousel">
-      <h2>Selecție Portofoliu</h2>
+      <h2 data-i18n="carouselTitle">Selecție Portofoliu</h2>
       <div class="carousel">
         <div class="carousel-track" id="carouselTrack"></div>
       </div>
       <div class="carousel-controls">
-        <button class="carousel-btn" id="prevBtn">← Înapoi</button>
+        <button class="carousel-btn" id="prevBtn" data-i18n="prevBtn">← Înapoi</button>
         <div class="carousel-dots" id="carouselDots"></div>
-        <button class="carousel-btn" id="nextBtn">Înainte →</button>
+        <button class="carousel-btn" id="nextBtn" data-i18n="nextBtn">Înainte →</button>
       </div>
     </section>
 
-    <button class="show-more" id="showMoreBtn">Mai multe poze -></button></button>
+    <button class="show-more" id="showMoreBtn" data-i18n="showMore">Mai multe poze -></button>
 
     <section class="contact" id="contact">
-      <h2>Contactează-mă</h2>
+      <h2 data-i18n="contactTitle">Contactează-mă</h2>
       <p class="contact-subtitle"> </p>
       
       <div class="contact-buttons">
@@ -811,35 +833,35 @@
 
   <div class="gallery-page" id="galleryPage">
     <div class="gallery-header">
-      <button class="back-btn" id="backBtn">← Înapoi la portofoliu</button>
-      <h2 style="font-weight:300; font-family:'Cormorant Garamond', serif; font-size:1.8rem; margin: 0;">Galeria mea</h2>
+      <button class="back-btn" id="backBtn" data-i18n="backToPortfolio">← Înapoi la portofoliu</button>
+      <h2 style="font-weight:300; font-family:'Cormorant Garamond', serif; font-size:1.8rem; margin: 0;" data-i18n="galleryTitle">Galeria mea</h2>
       <div style="display: none;"></div>
     </div>
     
     <div class="filters">
       <div class="filter-group">
-        <span class="filter-group-title">Format</span>
+        <span class="filter-group-title" data-i18n="filterFormat">Format</span>
         <div class="filter-options">
-          <input type="checkbox" class="filter-check" id="filterPortrait" data-filter="portrait"><label for="filterPortrait">Portret</label>
-          <input type="checkbox" class="filter-check" id="filterLandscape" data-filter="landscape"><label for="filterLandscape">Landscape</label>
+          <input type="checkbox" class="filter-check" id="filterPortrait" data-filter="portrait"><label for="filterPortrait" data-i18n="filterPortrait">Portret</label>
+          <input type="checkbox" class="filter-check" id="filterLandscape" data-filter="landscape"><label for="filterLandscape" data-i18n="filterLandscape">Landscape</label>
         </div>
       </div>
       
       <div class="filter-group">
-        <span class="filter-group-title">Moment al zilei</span>
+        <span class="filter-group-title" data-i18n="filterTime">Moment al zilei</span>
         <div class="filter-options">
-          <input type="checkbox" class="filter-check" id="filterZi" data-filter="zi"><label for="filterZi">Zi</label>
-          <input type="checkbox" class="filter-check" id="filterNoapte" data-filter="noapte"><label for="filterNoapte">Noapte</label>
+          <input type="checkbox" class="filter-check" id="filterZi" data-filter="zi"><label for="filterZi" data-i18n="filterZi">Zi</label>
+          <input type="checkbox" class="filter-check" id="filterNoapte" data-filter="noapte"><label for="filterNoapte" data-i18n="filterNoapte">Noapte</label>
         </div>
       </div>
       
       <div class="filter-group">
-        <span class="filter-group-title">Categorie</span>
+        <span class="filter-group-title" data-i18n="filterCategory">Categorie</span>
         <div class="filter-options">
-          <input type="checkbox" class="filter-check" id="filterNatura" data-filter="natura"><label for="filterNatura">Natură</label>
-          <input type="checkbox" class="filter-check" id="filterOameni" data-filter="oameni"><label for="filterOameni">Oameni</label>
-          <input type="checkbox" class="filter-check" id="filterUrban" data-filter="urban"><label for="filterUrban">Urban</label>
-          <input type="checkbox" class="filter-check" id="filterAbstract" data-filter="abstract"><label for="filterAbstract">Abstract</label>
+          <input type="checkbox" class="filter-check" id="filterNatura" data-filter="natura"><label for="filterNatura" data-i18n="filterNatura">Natură</label>
+          <input type="checkbox" class="filter-check" id="filterOameni" data-filter="oameni"><label for="filterOameni" data-i18n="filterOameni">Oameni</label>
+          <input type="checkbox" class="filter-check" id="filterUrban" data-filter="urban"><label for="filterUrban" data-i18n="filterUrban">Urban</label>
+          <input type="checkbox" class="filter-check" id="filterAbstract" data-filter="abstract"><label for="filterAbstract" data-i18n="filterAbstract">Abstract</label>
         </div>
       </div>
     </div>
@@ -852,12 +874,12 @@
     <div class="lightbox-content">
       <img class="lightbox-image" id="lightboxImage" src="" alt="">
       <p class="lightbox-description" id="lightboxDescription"></p>
-      <button class="lightbox-back-btn" id="lightboxBackBtn">← Revino la galerie</button>
+      <button class="lightbox-back-btn" id="lightboxBackBtn" data-i18n="lightboxBack">← Revino la galerie</button>
     </div>
   </div>
 
   <script>
-    (function() {
+    (async function() {
       const menuBtn = document.getElementById('menuBtn');
       const menuClose = document.getElementById('menuClose');
       const menuOverlay = document.getElementById('menuOverlay');
@@ -880,10 +902,130 @@
         });
       });
 
-      const featuredImages = [
-        "Poze/1.jpg", "Poze/2.jpg", "Poze/3.jpg", 
-        "Poze/4.jpg", "Poze/5.jpg"
-      ];
+      /* Translation logic with custom descriptions */
+      const translations = {
+        RO: {
+          menuAbout: "Despre",
+          menuPortfolio: "Portofoliu",
+          menuContact: "Contact",
+          subtitle: "Fotograf",
+          aboutP: "Numele meu este Mihai, iar de 5 ani încerc să fotografiez natura și fauna sălbatică. Indiferent de vreme sau de anotimp, ies afară cât de des posibil. Animalele sunt imprevizibile, dar tocmai asta face acest hobby și mai interesant. Până acum am învățat că răbdarea este cheia și că respectul pentru natură va fi întotdeauna răsplătit.",
+          carouselTitle: "Selecție Portofoliu",
+          prevBtn: "← Înapoi",
+          nextBtn: "Înainte →",
+          showMore: "Mai multe poze ->",
+          contactTitle: "Contactează-mă",
+          backToPortfolio: "← Înapoi la portofoliu",
+          galleryTitle: "Galeria mea",
+          filterFormat: "Format",
+          filterTime: "Moment al zilei",
+          filterCategory: "Categorie",
+          filterPortrait: "Portret",
+          filterLandscape: "Landscape",
+          filterZi: "Zi",
+          filterNoapte: "Noapte",
+          filterNatura: "Natură",
+          filterOameni: "Oameni",
+          filterUrban: "Urban",
+          filterAbstract: "Abstract",
+          lightboxBack: "← Revino la galerie"
+        },
+        ENG: {
+          menuAbout: "About",
+          menuPortfolio: "Portfolio",
+          menuContact: "Contact",
+          subtitle: "Photographer",
+          aboutP: "My name is Mihai, and for 5 years I have been trying to photograph nature and wildlife. Regardless of the weather, the season, I go outside as often as possible. Animals are unpredictable, but that's what makes this hobby even more interesting. So far I have learned that patience is the key and respect for nature will always be rewarded.",
+          carouselTitle: "Portfolio Selection",
+          prevBtn: "← Back",
+          nextBtn: "Next →",
+          showMore: "More photos ->",
+          contactTitle: "Contact Me",
+          backToPortfolio: "← Back to portfolio",
+          galleryTitle: "My Gallery",
+          filterFormat: "Format",
+          filterTime: "Time of day",
+          filterCategory: "Category",
+          filterPortrait: "Portrait",
+          filterLandscape: "Landscape",
+          filterZi: "Day",
+          filterNoapte: "Night",
+          filterNatura: "Nature",
+          filterOameni: "People",
+          filterUrban: "Urban",
+          filterAbstract: "Abstract",
+          lightboxBack: "← Back to gallery"
+        }
+      };
+
+      const langBtn = document.getElementById('langBtn');
+      let currentLang = 'RO';
+
+      langBtn.addEventListener('click', () => {
+        currentLang = currentLang === 'RO' ? 'ENG' : 'RO';
+        langBtn.textContent = currentLang;
+        document.documentElement.lang = currentLang === 'RO' ? 'ro' : 'en';
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (translations[currentLang][key]) {
+            el.textContent = translations[currentLang][key];
+          }
+        });
+      });
+
+      /* 
+        AICI ADAUGI TAGURILE PENTRU POZELE DIN FOLDERUL "Poze" (1.jpg, 2.jpg, etc.)
+        Dacă adaugi o poză nouă (ex: 6.jpg), o poți include mai jos cu tagurile dorite.
+      */
+      const customTags = {
+        '1.jpg': ['landscape', 'zi', 'natura'],
+        '2.jpg': ['portrait', 'zi', 'oameni'],
+        '3.jpg': ['landscape', 'noapte', 'urban'],
+        '4.jpg': ['portrait', 'zi', 'abstract', 'natura'],
+        '5.jpg': ['portrait', 'noapte', 'oameni']
+      };
+
+      const customDescriptions = {
+        '1.jpg': 'descriere',
+        '2.jpg': 'descriere',
+        '3.jpg': 'descriere',
+        '4.jpg': 'descriere',
+        '5.jpg': 'descriere'
+      };
+
+      // Încărcare automată a pozelor secvențiale din folderul Poze (1.jpg, 2.jpg, 3.jpg...)
+      async function loadImagesAutomatically() {
+        let imagesData = [];
+        let i = 1;
+        let maxLimit = 50; // Limită maximă de căutare automată
+
+        while (i <= maxLimit) {
+          let src = `Poze/${i}.jpg`;
+          let exists = await new Promise(resolve => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = src;
+          });
+
+          if (!exists) break;
+
+          let filename = `${i}.jpg`;
+          imagesData.push({
+            src: src,
+            desc: customDescriptions[filename] || "Wildlife & Nature Photography",
+            tags: customTags[filename] || ['natura', 'zi'] // Taguri implicite dacă nu sunt specificate
+          });
+          i++;
+        }
+        return imagesData;
+      }
+
+      const imagesData = await loadImagesAutomatically();
+
+      // Carousel setup (primele 5 poze sau câte sunt disponibile)
+      const featuredImages = imagesData.slice(0, 5).map(img => img.src);
       const track = document.getElementById('carouselTrack');
       const dotsContainer = document.getElementById('carouselDots');
       let currentIndex = 0;
@@ -911,6 +1053,7 @@
       });
 
       function updateCarousel() {
+        if(featuredImages.length === 0) return;
         track.style.transform = `translateX(-${currentIndex * 100}%)`;
         document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
           dot.classList.toggle('active', index === currentIndex);
@@ -922,23 +1065,22 @@
         updateCarousel();
       }
 
-      document.getElementById('nextBtn').addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % featuredImages.length;
-        updateCarousel();
-      });
+      const nextBtn = document.getElementById('nextBtn');
+      const prevBtn = document.getElementById('prevBtn');
 
-      document.getElementById('prevBtn').addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + featuredImages.length) % featuredImages.length;
-        updateCarousel();
-      });
+      if (nextBtn && featuredImages.length > 0) {
+        nextBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex + 1) % featuredImages.length;
+          updateCarousel();
+        });
+      }
 
-      const imagesData = [
-        { src: 'Poze/1.jpg', desc: 'descriere', tags: ['landscape', 'zi', 'natura'] },
-        { src: 'Poze/2.jpg', desc: 'sescriere', tags: ['portrait', 'zi', 'oameni'] },
-        { src: 'Poze/3.jpg', desc: 'descriere', tags: ['landscape', 'noapte', 'urban'] },
-        { src: 'Poze/4.jpg', desc: 'descriere', tags: ['portrait', 'zi', 'abstract', 'natura'] },
-        { src: 'Poze/5.jpg', desc: 'descriere', tags: ['portrait', 'noapte', 'oameni'] }
-      ];
+      if (prevBtn && featuredImages.length > 0) {
+        prevBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex - 1 + featuredImages.length) % featuredImages.length;
+          updateCarousel();
+        });
+      }
 
       const mainPage = document.getElementById('mainPage');
       const galleryPage = document.getElementById('galleryPage');
@@ -1000,14 +1142,12 @@
 
       const lightboxOverlay = document.getElementById('lightboxOverlay');
       const lightboxImage = document.getElementById('lightboxImage');
-      const lightboxDescription = document.getElementById('lightboxDescription');
 
       function openLightbox(src, desc) {
         lightboxImage.src = src;
-        // lightboxDescription.textContent = desc;
         lightboxOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
-    }
+      }
 
       function closeLightbox() {
         lightboxOverlay.classList.remove('active');
