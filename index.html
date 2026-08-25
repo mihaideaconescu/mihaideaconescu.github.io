@@ -207,25 +207,29 @@
 
     .about {
       padding: var(--spacing);
-      max-width: 1300px;
+      max-width: 1200px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 5rem;
+      gap: 4rem;
       align-items: center;
-      min-height: 90vh;
-      padding-top: 5rem;
+      min-height: 80vh;
+      padding-top: 4rem;
       animation: fadeInUp 1s ease-out;
     }
 
     .about-image-wrapper {
       position: relative;
       animation: fadeInScale 1.2s ease-out;
+      max-width: 450px;
+      margin: 0 auto;
+      width: 100%;
     }
 
     .about-image {
       width: 100%;
-      height: auto;
+      max-height: 550px;
+      object-fit: cover;
       display: block;
       background: linear-gradient(135deg, #ddd8d1, #c4bfb8);
       border-radius: var(--border-radius);
@@ -243,7 +247,7 @@
     }
 
     .about-text h1 {
-      font-size: clamp(3rem, 7vw, 5rem);
+      font-size: clamp(3rem, 6vw, 4.5rem);
       font-weight: 300;
       line-height: 1.1;
       margin-bottom: 1.5rem;
@@ -266,8 +270,8 @@
     }
 
     .carousel-section {
-      padding: 5rem var(--spacing);
-      max-width: 1400px;
+      padding: 3rem var(--spacing);
+      max-width: 850px;
       margin: 0 auto;
       animation: fadeInUp 1s ease-out 0.3s both;
     }
@@ -275,7 +279,7 @@
     .carousel-section h2 {
       font-size: 2rem;
       font-weight: 300;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       letter-spacing: 1px;
       font-family: 'Cormorant Garamond', serif;
       text-align: center;
@@ -292,7 +296,7 @@
 
     .carousel-track {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
       will-change: transform;
     }
@@ -302,17 +306,21 @@
       position: relative;
       overflow: hidden;
       background: #e0dcd6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .carousel-slide {
       width: 100%;
-      height: auto;
+      max-height: 65vh;
+      object-fit: contain;
       display: block;
       transition: transform 0.5s ease;
     }
 
     .carousel-slide-wrapper:hover .carousel-slide {
-      transform: scale(1.03);
+      transform: scale(1.02);
     }
 
     .watermark {
@@ -850,6 +858,11 @@
         <span class="filter-group-title" data-i18n="filterCategory">Categorie</span>
         <div class="filter-options">
           <input type="checkbox" class="filter-check" id="filterNatura" data-filter="natura"><label for="filterNatura" data-i18n="filterNatura">Natură</label>
+          <input type="checkbox" class="filter-check" id="filterPasari" data-filter="pasari"><label for="filterPasari" data-i18n="filterPasari">Păsări</label>
+          <input type="checkbox" class="filter-check" id="filterAnimale" data-filter="animale"><label for="filterAnimale" data-i18n="filterAnimale">Animale</label>
+          <input type="checkbox" class="filter-check" id="filterReptile" data-filter="reptile"><label for="filterReptile" data-i18n="filterReptile">Reptile</label>
+          <input type="checkbox" class="filter-check" id="filterInsecte" data-filter="insecte"><label for="filterInsecte" data-i18n="filterInsecte">Insecte</label>
+          <input type="checkbox" class="filter-check" id="filterArahnide" data-filter="arahnide"><label for="filterArahnide" data-i18n="filterArahnide">Arahnide</label>
           <input type="checkbox" class="filter-check" id="filterUrban" data-filter="urban"><label for="filterUrban" data-i18n="filterUrban">Urban</label>
           <input type="checkbox" class="filter-check" id="filterAbstract" data-filter="abstract"><label for="filterAbstract" data-i18n="filterAbstract">Abstract</label>
         </div>
@@ -913,6 +926,11 @@
           filterZi: "Zi",
           filterNoapte: "Noapte",
           filterNatura: "Natură",
+          filterPasari: "Păsări",
+          filterAnimale: "Animale",
+          filterReptile: "Reptile",
+          filterInsecte: "Insecte",
+          filterArahnide: "Arahnide",
           filterUrban: "Urban",
           filterAbstract: "Abstract",
           lightboxBack: "← Revino la galerie"
@@ -938,6 +956,11 @@
           filterZi: "Day",
           filterNoapte: "Night",
           filterNatura: "Nature",
+          filterPasari: "Birds",
+          filterAnimale: "Animals",
+          filterReptile: "Reptiles",
+          filterInsecte: "Insects",
+          filterArahnide: "Arachnids",
           filterUrban: "Urban",
           filterAbstract: "Abstract",
           lightboxBack: "← Back to gallery"
@@ -972,27 +995,27 @@
         '9.jpg': ['portrait', 'zi', 'pasari'],
         '10.jpg': ['portrait', 'zi', 'pasari'],
         '11.jpg': ['landscape', 'zi', 'pasari'],
-      '12.jpg': ['portrait', 'zi', 'pasari'],
-      '14.jpg': ['portrait', 'zi', 'animale],
-      '15.jpg': ['landscape', 'zi', 'animale'],
-      '16.jpg': ['portrait', 'zi', 'pasari'],
-      '17.jpg': ['landscape', 'zi', 'pasari'],
-      '18.jpg': ['portrait', 'zi', 'pasari'],
-      '19.jpg': ['landscape', 'zi', 'insecte'],
-      '20.jpg': ['portrait', 'zi', 'arahnide'],
-      '21.jpg': ['portrait', 'zi', 'pasari'],
-      '22.jpg': ['portrait', 'zi', 'pasari'],
-      '23.jpg': ['landscape', 'zi', 'pasari'],
-      '24.jpg': ['landscape', 'zi', 'animale'],
-      '25.jpg': ['portrait', 'zi', 'reptile'],
-      '26.jpg': ['portrait', 'zi', 'reptile'],
-      '27.jpg': ['landscape', 'zi', 'pasari'],
-      '28.jpg': ['portrait', 'zi', 'pasari'],
-      '29.jpg': ['portrait', 'zi', 'reptile'],
-      '31.jpg': ['landscape', 'zi', 'pasari'],
-      '32.jpg': ['portrait', 'zi', 'pasari'],
-      '33.jpg': ['landscape', 'zi', 'pasari'],
-      '34.jpg': ['landscape', 'zi', 'insecte'],
+        '12.jpg': ['portrait', 'zi', 'pasari'],
+        '14.jpg': ['portrait', 'zi', 'animale'],
+        '15.jpg': ['landscape', 'zi', 'animale'],
+        '16.jpg': ['portrait', 'zi', 'pasari'],
+        '17.jpg': ['landscape', 'zi', 'pasari'],
+        '18.jpg': ['portrait', 'zi', 'pasari'],
+        '19.jpg': ['landscape', 'zi', 'insecte'],
+        '20.jpg': ['portrait', 'zi', 'arahnide'],
+        '21.jpg': ['portrait', 'zi', 'pasari'],
+        '22.jpg': ['portrait', 'zi', 'pasari'],
+        '23.jpg': ['landscape', 'zi', 'pasari'],
+        '24.jpg': ['landscape', 'zi', 'animale'],
+        '25.jpg': ['portrait', 'zi', 'reptile'],
+        '26.jpg': ['portrait', 'zi', 'reptile'],
+        '27.jpg': ['landscape', 'zi', 'pasari'],
+        '28.jpg': ['portrait', 'zi', 'pasari'],
+        '29.jpg': ['portrait', 'zi', 'reptile'],
+        '31.jpg': ['landscape', 'zi', 'pasari'],
+        '32.jpg': ['portrait', 'zi', 'pasari'],
+        '33.jpg': ['landscape', 'zi', 'pasari'],
+        '34.jpg': ['landscape', 'zi', 'insecte'],
       };
 
       function loadImages() {
@@ -1161,4 +1184,3 @@
   </script>
 </body>
 </html>
-
